@@ -27,13 +27,24 @@ const Form = ({ currentId, setCurrentId }) => {
     } else {
       dispatch(createPost(postData));
     }
+
+    clear();
   };
 
   useEffect(() => {
     if (post) setPostData(post);
   }, [post]);
 
-  const clear = () => {};
+  const clear = () => {
+    setCurrentId(null);
+    setPostData({
+      creator: '',
+      title: '',
+      message: '',
+      tags: '',
+      selectedFile: ''
+    });
+  };
 
   return (
     <Paper className={classes.paper}>
