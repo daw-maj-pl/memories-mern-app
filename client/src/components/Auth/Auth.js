@@ -10,6 +10,7 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Input from './Input';
+import GoogleLogin from './GoogleLogin';
 
 const Auth = () => {
   const classes = useStyles();
@@ -86,7 +87,8 @@ const Auth = () => {
           >
             {isSignup ? 'Sign Up' : 'Sign In'}
           </Button>
-          <Grid container justifyContent="flex-end">
+          <GoogleLogin />
+          <Grid container justifyContent="center">
             <Grid item>
               <Button onClick={switchMode}>
                 {isSignup
