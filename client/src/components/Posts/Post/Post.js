@@ -101,13 +101,16 @@ const Post = ({ post, setCurrentId }) => {
         >
           <Likes />
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => dispatch(deletePost(post._id))}
-        >
-          <DeleteIcon fontSize="small" /> Delete
-        </Button>
+        {(user?.result?.googleId === post?.creator ||
+          user?.result?._id === post?.creator) && (
+          <Button
+            size="small"
+            color="secondary"
+            onClick={() => dispatch(deletePost(post._id))}
+          >
+            <DeleteIcon fontSize="small" /> Delete
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
