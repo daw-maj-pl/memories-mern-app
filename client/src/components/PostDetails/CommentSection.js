@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Typography, TextField, Button } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
 import useStyles from './styles';
@@ -10,6 +10,7 @@ const CommentSection = ({ post }) => {
   const [comment, setComment] = useState('');
   const classes = useStyles();
   const dispatch = useDispatch();
+  const commentsRef = useRef();
 
   const handleComment = async () => {
     const newComments = await dispatch(
@@ -17,6 +18,7 @@ const CommentSection = ({ post }) => {
     );
     setComment('');
     setComments(newComments);
+    commentsRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -32,6 +34,7 @@ const CommentSection = ({ post }) => {
               {c.split(':')[1]}
             </Typography>
           ))}
+          <div ref={commentsRef} />
         </div>
         <div style={{ width: '70%' }}>
           <Typography gutterBottom variant="h6">
