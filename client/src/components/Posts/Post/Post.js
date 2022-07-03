@@ -27,7 +27,7 @@ const Post = ({ post, setCurrentId }) => {
   const Likes = () => {
     if (post.likes.length > 0) {
       return post.likes.find(
-        like => like === (user?.result?.googleId || user?.result?._id)
+        like => like === (user?.result?.sub || user?.result?._id)
       ) ? (
         <>
           <ThumbUpAltIcon fontSize="small" />
@@ -58,7 +58,11 @@ const Post = ({ post, setCurrentId }) => {
 
   return (
     <Card className={classes.card} elevation={6}>
-      <ButtonBase className={classes.cardAction} onClick={openPost}>
+      <ButtonBase
+        className={classes.cardAction}
+        onClick={openPost}
+        component="span"
+      >
         <CardMedia
           className={classes.media}
           image={
@@ -73,13 +77,16 @@ const Post = ({ post, setCurrentId }) => {
             {moment(post.createdAt).fromNow()}
           </Typography>
         </div>
-        {(user?.result?.googleId === post?.creator ||
+        {(user?.result?.sub === post?.creator ||
           user?.result?._id === post?.creator) && (
           <div className={classes.overlay2}>
             <Button
               style={{ color: 'white' }}
               size="small"
-              onClick={() => setCurrentId(post._id)}
+              onClick={e => {
+                e.stopPropagation();
+                setCurrentId(post._id);
+              }}
             >
               <MoreHorizIcon fontSize="medium" />
             </Button>
@@ -113,7 +120,7 @@ const Post = ({ post, setCurrentId }) => {
         >
           <Likes />
         </Button>
-        {(user?.result?.googleId === post?.creator ||
+        {(user?.result?.sub === post?.creator ||
           user?.result?._id === post?.creator) && (
           <Button
             size="small"
