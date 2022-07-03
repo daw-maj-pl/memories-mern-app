@@ -24,11 +24,11 @@ const Post = ({ post, setCurrentId }) => {
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem('profile'));
 
+  const userId = user?.result?.sub || user?.result?._id;
+
   const Likes = () => {
     if (post.likes.length > 0) {
-      return post.likes.find(
-        like => like === (user?.result?.sub || user?.result?._id)
-      ) ? (
+      return post.likes.find(like => like === userId) ? (
         <>
           <ThumbUpAltIcon fontSize="small" />
           &nbsp;
